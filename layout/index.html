@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="layout/style.css">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Fundify</title>
+    <style>
+        table th,td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="images/logo2.png" alt="">
+            </div>
+
+            <span class="logo_name">Fundify</span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li>
+                    <a href="index.php">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Home</span>
+                    </a>
+                </li>
+                <li><a href="pemasukan.php">
+                        <i class="uil uil-folder-plus"></i>
+                        <span class="link-name">Pemasukan</span>
+                    </a></li>
+                <li><a href="pengeluaran.php">
+                        <i class="uil uil-folder-minus"></i>
+                        <span class="link-name">Pengeluaran</span>
+                    </a></li>
+                <li><a href="grafik.php">
+                        <i class="uil uil-analytics"></i>
+                        <span class="link-name">Grafik</span>
+                    </a></li>
+                <li><a href="about.php">
+                        <i class="uil uil-cloud-info"></i>
+                        <span class="link-name">About</span>
+                    </a></li>
+            </ul>
+
+            <ul class="logout-mode">
+                <li><a href="Logout.php">
+                        <i class="uil uil-signout"></i>
+                        <span class="link-name">Logout</span>
+                    </a></li>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+
+            <i class="uil uil-user-circle profile"></i>
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Dashboard</span>
+                </div>
+
+                <div class="boxes">
+                    <div class="box box1">
+                        <i class="uil uil-thumbs-up"></i>
+                        <span class="text">Total pemasukan</span>
+                        <span class="number">TOTAL_MASUK</span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uil uil-comments"></i>
+                        <span class="text">Total Pengeluaran</span>
+                        <span class="number">TOTAL_KELUAR</span>
+                    </div>
+                    <div class="box box3">
+                        <i class="uil uil-share"></i>
+                        <span class="text">Selisih</span>
+                        <span class="number">SELISIH</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <div class="title">
+                    <i class="uil uil-users-alt"></i>
+                    <span class="text">Daftar User</span>
+                </div>
+        
+                <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Name</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Email</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Joined</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Type</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Aksi</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Ridho</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">ridho@gmail.com</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">2024-05-26</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">User</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">hapus edit</td>
+                    </tr>
+                    <!-- Lanjutkan dengan baris lainnya -->
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

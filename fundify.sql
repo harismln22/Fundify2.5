@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2024 at 01:02 PM
+-- Generation Time: Jun 01, 2024 at 02:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,8 +41,7 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id_akun`, `fullname`, `username`, `password`, `email`, `jabatan`) VALUES
-(1, 'nufald aha', 'aha', 'aha123', 'nufald@gmail.com', 'Satu'),
-(2, 'maul ida', 'maul', 'maul123', 'maul@gmail.com', 'Dua');
+(18, 'nufald aha', 'aha', '$2y$10$oxVRDgPoDA953eh2YnRGeeTMub4VLtAQiFHjvu6k1PFMw6XHzDSwy', 'aha@gmail.com', 'exampel');
 
 -- --------------------------------------------------------
 
@@ -53,18 +52,10 @@ INSERT INTO `akun` (`id_akun`, `fullname`, `username`, `password`, `email`, `jab
 CREATE TABLE `pemasukan` (
   `id_pemasukan` int(5) NOT NULL,
   `id_akun` int(5) NOT NULL,
-  `tanggal` date NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `jumlah` decimal(10,2) NOT NULL,
   `sumber` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `pemasukan`
---
-
-INSERT INTO `pemasukan` (`id_pemasukan`, `id_akun`, `tanggal`, `jumlah`, `sumber`) VALUES
-(3, 1, '2024-05-09', 1000.00, 'a'),
-(5, 2, '2024-05-11', 20000.00, 'pt');
 
 -- --------------------------------------------------------
 
@@ -75,16 +66,9 @@ INSERT INTO `pemasukan` (`id_pemasukan`, `id_akun`, `tanggal`, `jumlah`, `sumber
 CREATE TABLE `pengeluaran` (
   `id_pengeluaran` int(5) NOT NULL,
   `id_akun` int(5) NOT NULL,
-  `tanggal` date NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `jumlah` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `pengeluaran`
---
-
-INSERT INTO `pengeluaran` (`id_pengeluaran`, `id_akun`, `tanggal`, `jumlah`) VALUES
-(1, 2, '2024-05-08', 5000.00);
 
 -- --------------------------------------------------------
 
@@ -140,19 +124,19 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_akun` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
-  MODIFY `id_pemasukan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pemasukan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id_pengeluaran` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengeluaran` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `transaksi`

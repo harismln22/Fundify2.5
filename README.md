@@ -1,6 +1,6 @@
 # FUNDIFY
 
 Login: 
-username = aha
-password aha123
+username = aha,
+password = aha123
 

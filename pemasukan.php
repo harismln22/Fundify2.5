@@ -9,22 +9,27 @@ include_once("controller/PemasukanController.php");
 
 $masuk = new PemasukanController();
 
-if (!empty($_GET['id_hapus'])) 
+if ($_SESSION['role'] == 1) // jika akun login tersebut adalah admin
 {
-    $id = $_GET['id_hapus'];
-    $masuk->delete($id); 
-}
-else if(isset($_GET['id_edit']))
-{
-    if(isset($_POST['edit']))
+    if (!empty($_GET['id_hapus'])) // mengambil id hapus
     {
-        $id = $_GET['id_edit'];
-        $masuk->edit($id, $_POST);
+        $id = $_GET['id_hapus'];
+        $masuk->delete($id); 
     }
-    else{
-        $masuk->indexEdit();
+    else if(isset($_GET['id_edit'])) // jika tombol edit ditekan
+    {
+        if(isset($_POST['edit']))
+        {
+            $id = $_GET['id_edit'];
+            $masuk->edit($id, $_POST);
+        }
+        else{
+            $masuk->indexEdit();
+        }
     }
-}
-else {
-    $masuk->index();
+    else {
+        $masuk->indexAdmin();
+    }
+} else { // jika akun tersebut adalah user
+    $masuk->indexUser();
 }

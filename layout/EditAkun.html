@@ -73,18 +73,30 @@
 
             <div class="login-form">
                 <form action="" method="POST">
-                    <h2 class="text-center warna ketebalan">Edit Data</h2>
+                    <h2 class="text-center warna ketebalan">Edit Akun Data </h2>
                     <div class="form-group">
-                        <label for="jumlah">Jumlah</label>
-                        <input type="text" name="jumlah" id="jumlah" class="form-control" placeholder="jumlah..."
+                        <label for="fullname">Fullname</label>
+                        <input type="text" name="fullname" id="fullname" class="form-control"
+                            placeholder="Fullname..." required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="form-control"
+                            placeholder="Username..." required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="jabatan">jabatan</label>
+                        <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="jabatan..."
                             required>
                     </div>
                     <div class="form-group">
-                        FORM_SUMBER
+                        <label for="password">Email</label>
+                        <input type="email" name="email" id="jabatan" class="form-control" placeholder="email@example..."
+                            required>
                     </div>
                     <br>
                     <div class="form-group">
-                        <button type="submit" name="edit" class="btn btn-primary" style="float: right;">Edit</button>
+                        <button type="submit" name="edit" class="btn btn-primary" style="float: right;">Update</button>
                     </div>
                 </form>
             </div>

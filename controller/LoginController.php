@@ -25,8 +25,6 @@ class LoginController {
         $this->login->close();
 
         if ($user) {
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['is_logged_in'] = true;
             header("location:index.php"); 
             exit;
         } else {
@@ -35,4 +33,5 @@ class LoginController {
             exit;
         }
     }
+
 }

@@ -4,52 +4,35 @@ class KeuanganModel extends DB
 {
     function getDataMasuk() 
     {
-        $query = "SELECT akun.id_akun, akun.fullname, akun.jabatan, pemasukan.tanggal, pemasukan.jumlah 
+        $query = "SELECT pemasukan.id_pemasukan, akun.fullname, akun.jabatan , pemasukan.tanggal, pemasukan.jumlah, pemasukan.sumber 
                     FROM akun 
                     JOIN pemasukan ON akun.id_akun = pemasukan.id_akun";
         return $this->execute($query);
     }
+
     function getDataKeluar() 
     {
-        $query = "SELECT akun.id_akun, akun.fullname, akun.jabatan, pengeluaran.tanggal, pengeluaran.jumlah 
+        $query = "SELECT pengeluaran.id_pengeluaran, akun.fullname, akun.jabatan, pengeluaran.tanggal, pengeluaran.jumlah 
                     FROM akun 
                     JOIN pengeluaran ON akun.id_akun = pengeluaran.id_akun";
         return $this->execute($query);
     }
 
+
     function MasukaddDataKeuangan($data)
     {
-        // Menambahkan data ke tabel akun
-        $nama = $data['name'];
-        $jabatan = $data['jabatan'];
-        $queryAkun = "INSERT INTO akun (fullname, jabatan) VALUES ('$nama', '$jabatan')";
-        $this->execute($queryAkun);
-
-        // Mendapatkan id_akun yang baru saja ditambahkan
-        $id_akun = mysqli_insert_id($this->db_link);
+        // Mendapatkan id_akun dari sesi pengguna yang login
+        $id_akun = $_SESSION['id_akun'];
 
         // Menambahkan data ke tabel pemasukan
         $jumlah = $data['jumlah'];
-        $queryPemasukan = "INSERT INTO pemasukan (id_akun, tanggal, jumlah) VALUES ('$id_akun', CURRENT_TIMESTAMP(), '$jumlah')";
-        $this->execute($queryPemasukan);
-
-        $queryJoin = "SELECT akun.id_akun, akun.fullname, akun.jabatan, pemasukan.tanggal, pemasukan.jumlah 
-                      FROM akun 
-                      JOIN pemasukan ON akun.id_akun = pemasukan.id_akun
-                      WHERE akun.id_akun = '$id_akun'";
-        return $this->execute($queryJoin);
+        $sumber = $data['sumber'];
+        $queryPemasukan = "INSERT INTO pemasukan (id_akun, tanggal, jumlah, sumber) VALUES ('$id_akun', CURRENT_TIMESTAMP(), '$jumlah', '$sumber')";
+        return $this->execute($queryPemasukan);
     }
-
     function KeluaraddDataKeuangan($data)
     {
-        // Menambahkan data ke tabel akun
-        $nama = $data['name'];
-        $jabatan = $data['jabatan'];
-        $queryAkun = "INSERT INTO akun (fullname, jabatan) VALUES ('$nama', '$jabatan')";
-        $this->execute($queryAkun);
-
-        // Mendapatkan id_akun yang baru saja ditambahkan
-        $id_akun = mysqli_insert_id($this->db_link);
+        $id_akun = $_SESSION['id_akun'];
 
         // Menambahkan data ke tabel pengeluaran
         $jumlah = $data['jumlah'];
@@ -63,61 +46,54 @@ class KeuanganModel extends DB
         return $this->execute($queryJoin);
     }
 
-    function MasukDelDatakeuangan($id)
+    function MasukDelDatakeuangan($id_pemasukan)
     {
-        $query = "DELETE FROM pemasukan WHERE id_akun = '$id'";
+        $query = "DELETE FROM pemasukan WHERE id_pemasukan = '$id_pemasukan'";
 
         return $this->execute($query);
     }
 
-    function KeluarDelDatakeuangan($id)
+    function KeluarDelDatakeuangan($id_pengeluaran)
     {
-        $query = "DELETE FROM pengeluaran WHERE id_akun = '$id'";
+        $query = "DELETE FROM pengeluaran WHERE id_pengeluaran = '$id_pengeluaran'";
 
         return $this->execute($query);
     }
-
-    function MasukEditDataKeuangan($id_akun, $data)
+    
+    // Edit data pemasukan
+    function MasukEditDataKeuangan($id_pemasukan, $data)
     {
-        // Mengedit data di tabel akun
-        $nama = $data['name'];
-        $jabatan = $data['jabatan'];
-        $queryAkun = "UPDATE akun SET fullname = '$nama', jabatan = '$jabatan' WHERE id_akun = '$id_akun'";
-        $this->execute($queryAkun);
-
-        // Mengedit data di tabel pemasukan
+        $sumber = $data['sumber'];
         $jumlah = $data['jumlah'];
-        $queryPemasukan = "UPDATE pemasukan SET jumlah = '$jumlah', tanggal = CURRENT_TIMESTAMP() WHERE id_akun = '$id_akun'";
-        $this->execute($queryPemasukan);
 
-        // Mengambil data yang telah diupdate untuk verifikasi
-        $queryJoin = "SELECT akun.id_akun, akun.fullname, akun.jabatan, pemasukan.tanggal, pemasukan.jumlah 
-                    FROM akun 
-                    JOIN pemasukan ON akun.id_akun = pemasukan.id_akun
-                    WHERE akun.id_akun = '$id_akun'";
-        return $this->execute($queryJoin);
+        $query = "UPDATE pemasukan SET jumlah = ?, tanggal = CURRENT_TIMESTAMP(), sumber = ? WHERE id_pemasukan = ?";
+        $stmt = $this->db_link->prepare($query);
+        $stmt->bind_param("isi", $jumlah, $sumber, $id_pemasukan);
+        $stmt->execute();
+        return $stmt->affected_rows == 1;
     }
 
-    function KeluarEditDataKeuangan($id_akun, $data)
+    // Edit data pengeluaran
+    function KeluarEditDataKeuangan($id_pengeluaran, $data)
     {
-        // Mengedit data di tabel akun
-        $nama = $data['name'];
-        $jabatan = $data['jabatan'];
-        $queryAkun = "UPDATE akun SET fullname = '$nama', jabatan = '$jabatan' WHERE id_akun = '$id_akun'";
-        $this->execute($queryAkun);
-
-        // Mengedit data di tabel pemasukan
         $jumlah = $data['jumlah'];
-        $queryPengeluaran = "UPDATE pengeluaran SET jumlah = '$jumlah', tanggal = CURRENT_TIMESTAMP() WHERE id_akun = '$id_akun'";
-        $this->execute($queryPengeluaran);
 
+        $queryPengeluaran = "UPDATE pengeluaran SET jumlah = ?, tanggal = CURRENT_TIMESTAMP() WHERE id_pengeluaran = ?";
+        $stmt = $this->db_link->prepare($queryPengeluaran);
+        $stmt->bind_param("ii", $jumlah, $id_pengeluaran);
+        $stmt->execute();
+        
         // Mengambil data yang telah diupdate untuk verifikasi
-        $queryJoin = "SELECT akun.id_akun, akun.fullname, akun.jabatan, pengeluaran.tanggal, pengeluaran.jumlah 
+        $queryJoin = "SELECT pengeluaran.id_pengeluaran, akun.fullname, akun.jabatan, pengeluaran.tanggal, pengeluaran.jumlah 
                     FROM akun 
                     JOIN pengeluaran ON akun.id_akun = pengeluaran.id_akun
-                    WHERE akun.id_akun = '$id_akun'";
-        return $this->execute($queryJoin);
+                    WHERE pengeluaran.id_pengeluaran = ?";
+        $stmt = $this->db_link->prepare($queryJoin);
+        $stmt->bind_param("i", $id_pengeluaran);
+        $stmt->execute();
+        return $stmt->get_result();
     }
+
 
     function getTotalPemasukan() {
         // Membuka koneksi ke database

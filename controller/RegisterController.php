@@ -26,7 +26,7 @@ class RegisterController {
 
         if ($isRegistered) {
             $_SESSION['username'] = $data['username'];
-            header("location:index.php"); // Asumsikan Anda memiliki halaman utama setelah registrasi
+            header("location:index.php"); 
         } else {
             header("location:registrasi.php?error=registration_failed");
         }

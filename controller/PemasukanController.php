@@ -16,7 +16,7 @@ class PemasukanController
   }
 
   // table pemasukan 
-  public function index()
+  public function indexAdmin()
   {
     $this->pemasukan->open();
     $this->pemasukan->getDataMasuk();
@@ -34,7 +34,27 @@ class PemasukanController
     $this->pemasukan->close();
 
     $view = new PemasukanView();
-    $view->render($data);
+    $view->renderAdmin($data);
+  }
+  public function indexUser()
+  {
+    $this->pemasukan->open();
+    $this->pemasukan->getDataMasuk();
+
+    $data = array(
+      'pemasukan' => array(),
+    );
+    while ($row = $this->pemasukan->getResult()) {
+      // echo "<pre>";
+      // print_r($row);
+      // echo "</pre>";
+      array_push($data['pemasukan'], $row);
+    }
+
+    $this->pemasukan->close();
+
+    $view = new PemasukanView();
+    $view->renderUser($data);
   }
 
   //form tambah data

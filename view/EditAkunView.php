@@ -1,10 +1,10 @@
 <?php
 include_once("model/Template.php");
-class AboutView {
+class EditAkunView {
 
-    public function render()
+    public function renderEditAkun()
     {
-        $views = new Template("layout/about.html");
+        $views = new Template("layout/editAkun.html");
         $profileName = $_SESSION['username'];
         $views->replace("PROFILE", $profileName);
         $views->write();
